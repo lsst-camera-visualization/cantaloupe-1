@@ -1,5 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+    <parent>
+        <groupId>org.lsst</groupId>
+        <artifactId>org-lsst-ccs-parent</artifactId>
+        <version>3.0.17</version>
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.illinois.library.cantaloupe</groupId>
     <artifactId>cantaloupe</artifactId>
@@ -17,16 +23,6 @@
     </scm>
 
     <distributionManagement>
-        <repository>
-            <id>lsst-maven2</id>
-            <name>LSST Maven 2 central repository</name>
-            <url>https://repo-nexus.lsst.org/nexus/content/repositories/ccs-maven2/</url>
-        </repository>
-        <snapshotRepository>
-            <id>lsst-maven2-snapshots</id>
-            <name>LSST Maven2 central SNAPSHOTS repository</name>
-            <url>https://repo-nexus.lsst.org/nexus/content/repositories/ccs-maven2-snapshots/</url>
-        </snapshotRepository>
         <site>
             <id>lsst-maven2-site</id>
             <name>LSST Maven2 central site repository</name>
@@ -446,18 +442,6 @@
     </repositories>
 
     <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh-external</artifactId>
-                <version>2.12</version>
-            </extension>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-webdav-jackrabbit</artifactId>
-                <version>2.12</version>
-            </extension>
-        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -539,7 +523,7 @@
                 </executions>
             </plugin>
 
-            <!-- Assemble the JAR into a release package. -->
+            <!-- Assemble the JAR into a release package. 
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.1</version>
@@ -558,7 +542,7 @@
                     </descriptors>
                 </configuration>
             </plugin>
-
+-->
             <!-- Enables running with mvn exec:java -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
