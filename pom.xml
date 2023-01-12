@@ -1,6 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>org.lsst</groupId>
+        <artifactId>org-lsst-ccs-parent</artifactId>
+        <version>3.0.17</version>
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.illinois.library.cantaloupe</groupId>
     <artifactId>cantaloupe</artifactId>
@@ -10,7 +17,25 @@
     <url>https://cantaloupe-project.github.io/</url>
     <inceptionYear>2015</inceptionYear>
 
+
+    <scm>
+        <url>https://github.com/lsst-camera-visualization/cantaloupe-1.git</url>
+        <connection>scm:git:git://github.com/lsst-camera-visualization/cantaloupe-1.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/lsst-camera-visualization/cantaloupe-1.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <site>
+            <id>lsst-maven2-site</id>
+            <name>LSST Maven2 central site repository</name>
+            <url>dav:${org.lsst.ccs.site.url}</url>
+        </site>
+    </distributionManagement>
+
     <properties>
+        <org.lsst.ccs.site.url>https://repo-nexus.lsst.org/nexus/content/sites/${org.lsst.ccs.site.name}/site-root/visualization/${project.artifactId}/${project.version}</org.lsst.ccs.site.url>
+        <org_lsst_ccs_project_type>visualization</org_lsst_ccs_project_type>
         <maven.compile.source>17</maven.compile.source>
         <maven.compile.target>17</maven.compile.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,12 +67,6 @@
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:git://github.com/cantaloupe-project/cantaloupe</connection>
-        <developerConnection>scm:git:git@github.com:cantaloupe-project/cantaloupe</developerConnection>
-        <tag>HEAD</tag>
-        <url>https://github.com/cantaloupe-project/cantaloupe</url>
-    </scm>
     <issueManagement>
         <system>GitHub Issues</system>
         <url>https://github.com/cantaloupe-project/cantaloupe/issues</url>
@@ -179,7 +198,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.4.2</version>
+            <version>5.6.2</version>
             <scope>test</scope>
         </dependency>
         <!-- Performance tests -->
@@ -397,7 +416,7 @@
         <dependency>
             <groupId>org.lsst</groupId>
             <artifactId>ccs.fits.test</artifactId>
-            <version>1.7.0-SNAPSHOT</version>
+            <version>1.7.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -407,6 +426,11 @@
     </dependencies>
 
     <repositories>
+        <repository>
+            <id>lsst-maven2-public</id>
+            <name>LSST Maven 2 central repository</name>
+            <url>https://repo-nexus.lsst.org/nexus/content/groups/ccs-maven2-public/</url>
+        </repository>
         <repository>
             <id>osgeo</id>
             <name>OSGeo Release Repository</name>
@@ -457,7 +481,6 @@
                 <configuration>
                     <source>${maven.compile.source}</source>
                     <target>${maven.compile.target}</target>
-                    <useIncrementalCompilation>false</useIncrementalCompilation>
                 </configuration>
             </plugin>
 
