@@ -6,6 +6,7 @@ import edu.illinois.library.cantaloupe.image.Metadata;
 import edu.illinois.library.cantaloupe.image.Rectangle;
 import edu.illinois.library.cantaloupe.image.ScaleConstraint;
 import edu.illinois.library.cantaloupe.operation.Crop;
+import edu.illinois.library.cantaloupe.operation.CropByPercent;
 import edu.illinois.library.cantaloupe.operation.ReductionFactor;
 import edu.illinois.library.cantaloupe.operation.Scale;
 import edu.illinois.library.cantaloupe.source.StreamFactory;
@@ -89,7 +90,8 @@ final class DelegatingImageReader implements ImageReader {
         LOGGER.info("CANTALOUPE: scale=" + scale);
         LOGGER.info("CANTALOUPE: crop=" + crop);
         final Dimension fullSize = getSize(0);
-        final Rectangle regionRect = crop.getRectangle(fullSize, new ReductionFactor(), scaleConstraint);
+        Crop actualCrop = crop == null ? new CropByPercent() : crop;
+        final Rectangle regionRect = actualCrop.getRectangle(fullSize, new ReductionFactor(), scaleConstraint);
         LOGGER.info("CANTALOUPE: regionRect=" + regionRect);
         Dimension resultingSize = scale.getResultingSize(fullSize, reductionFactor, scaleConstraint);
         LOGGER.info("CANTALOUPE: resultingSize=" + resultingSize);
@@ -157,6 +159,7 @@ final class DelegatingImageReader implements ImageReader {
         List<String> lines = Files.readAllLines(inputFile);
         imageId = lines.get(0);
         servers = lines.subList(1, lines.size()).stream()
+                .filter(line -> !line.startsWith("#"))
                 .map(line -> new Server(line))
                 .collect(Collectors.toList());
         if (servers.size() < 1) {
